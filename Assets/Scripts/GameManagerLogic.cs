@@ -8,10 +8,10 @@ public class GameManagerLogic : MonoBehaviour
     public int totalItemCount;
     public int stage;
 
-    public Text stageCount;
+    public Text totalCount;
     Player player;
     void Awake()
     {
-        stageCount.text = "/ " + totalItemCount;
+        totalCount.text = "/ " + totalItemCount;
     }
 }

@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     public int itemCount;
 
     public GameManagerLogic manager;
+    public bl_Joystick Joystick;
 
     Rigidbody rigidbody;
     void Awake()
@@ -22,9 +23,8 @@ public class Player : MonoBehaviour
     void Update()
     {
         if (!jump && Input.GetButtonDown("Jump"))
-        {   
-            jump = true;
-            rigidbody.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
+        {
+            Jump();
         }
         
         if (transform.position.y < -10)
@@ -32,11 +32,21 @@ public class Player : MonoBehaviour
             SceneManager.LoadScene("Stage" + manager.stage);
         }
     }
+    public void Jump()
+    {
+        if (!jump)
+        {
+            jump = true;
+            rigidbody.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
+        }
+            
+    }
+
     void FixedUpdate()
     {
-        float h = Input.GetAxisRaw("Horizontal");
-        float v = Input.GetAxisRaw("Vertical");
-        rigidbody.AddForce(new Vector3(h, 0, v), ForceMode.Impulse);
+        float h = Joystick.Horizontal;
+        float v = Joystick.Vertical;
+        rigidbody.AddForce(new Vector3(h * 0.2f, 0, v * 0.2f), ForceMode.Impulse);
     }
     void OnCollisionEnter(Collision collision)
     {
