@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
-    AudioSource audio;
+    AudioSource audioSource;
     public float jumpPower = 10;
     bool jump;
     public int itemCount;
@@ -13,12 +13,12 @@ public class Player : MonoBehaviour
     public GameManagerLogic manager;
     public bl_Joystick Joystick;
 
-    Rigidbody rigidbody;
+    Rigidbody rigid;
     void Awake()
     {
-        audio = GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
         jump = false;
-        rigidbody = GetComponent<Rigidbody>(); 
+        rigid = GetComponent<Rigidbody>();
     }
     void Update()
     {
@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
         {
             Jump();
         }
-        
+
         if (transform.position.y < -10)
         {
             SceneManager.LoadScene("Stage" + manager.stage);
@@ -37,32 +37,32 @@ public class Player : MonoBehaviour
         if (!jump)
         {
             jump = true;
-            rigidbody.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
+            rigid.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
         }
-            
+
     }
 
     void FixedUpdate()
     {
         float h = Joystick.Horizontal;
         float v = Joystick.Vertical;
-        rigidbody.AddForce(new Vector3(h * 0.2f, 0, v * 0.2f), ForceMode.Impulse);
+        rigid.AddForce(new Vector3(h * 0.05f, 0, v * 0.05f), ForceMode.Impulse);
     }
     void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "Ground")
+        if (collision.gameObject.tag == "Ground")
         {
             jump = false;
         }
-        
+
     }
     void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Item")
         {
-            audio.Play();
+            audioSource.Play();
         }
-        else if(other.tag == "Finish")
+        else if (other.tag == "Finish")
         {
             if (itemCount == manager.totalItemCount)
             {

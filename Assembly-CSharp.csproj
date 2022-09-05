@@ -60,8 +60,8 @@
     <Compile Include="Assets\UJoystick\Content\Script\Core\bl_Joystick.cs" />
     <Compile Include="Assets\UJoystick\Content\Script\Internal\bl_JoystickUtils.cs" />
     <Compile Include="Assets\Scripts\Camera.cs" />
-    <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\Item.cs" />
+    <Compile Include="Assets\Scripts\Player.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\UJoystick\ReadMe.txt" />
